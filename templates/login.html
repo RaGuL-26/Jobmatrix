@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class='container'>
+<form method="post" action = '{% url "loginpage" %}'>
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="id_email" class="form-label">Email</label>
+        <input type="email" name="email" id="id_email" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label for="id_password" class="form-label">Password</label>
+        <input type="password" name="password" id="id_password" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-dark">Login</button>
+</form>
+</div>
+
+{% endblock content %}
+
+

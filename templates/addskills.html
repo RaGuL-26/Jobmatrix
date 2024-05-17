@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Add Skill</h2>
+    <form method="post" action="{% url 'addskill' user.slug %}">
+        {% csrf_token %}
+        
+        <div class="mb-3">
+            <label for="id_skill_name" class="form-label">Skill Name:</label>
+            <input type="text" name="skill_name" maxlength="100" required="" id="id_skill_name" class="form-control">
+        </div>
+
+        <button type="submit" class="btn btn-dark">Add Skill</button>
+    </form>
+</div>
+{% endblock %}

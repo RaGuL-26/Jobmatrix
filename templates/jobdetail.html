@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>{{ job.title }}</h1>
+    <p>Description: {{ job.description }}</p>
+    <p>Company: {{ job.company_name }}</p>
+    <p>Posted At:{{ job.created_at }}</p>
+    <p>Posted By:{{ job.user.username }}</p>
+    {% if user.user_type == 'Jobseeker' %}
+        <a href="{% url 'applyjob' job.slug %}" class="btn btn-dark">Apply Now</a>
+    {% elif user.user_type == 'JobHirer' and job.user == user %}
+        <form action="{% url 'deletejob' job.id %}" method="POST" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+    {% endif %}
+</div>
+{% endblock content %}

@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Add Certificate</h2>
+    <form method="post" action="{% url 'addcertificate' user.slug %}">
+        {% csrf_token %}
+        
+        <div class="mb-3">
+            <label for="id_certificate_name" class="form-label">Certificate Name:</label>
+            <input type="text" name="certificate_name" maxlength="100" required="" id="id_certificate_name" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label for="id_issuing_organization" class="form-label">Issuing Organization:</label>
+            <input type="text" name="issuing_organization" maxlength="100" required="" id="id_issuing_organization" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label for="id_issue_date" class="form-label">Issue Date:</label>
+            <input type="date" name="issue_date" required="" id="id_issue_date" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label for="id_credential_url" class="form-label">Credential URL:</label>
+            <input type="url" name="credential_url" id="id_credential_url" class="form-control">
+        </div>
+
+        <button type="submit" class="btn btn-dark">Add Certificate</button>
+    </form>
+</div>
+{% endblock %}

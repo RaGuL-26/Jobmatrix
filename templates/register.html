@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+    <form method="post" class="mt-5" action="{% url 'register' %}">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="id_username" class="form-label">Username</label>
+            <input type="text" name="username" id="id_username" class="form-control" value="{{ form.username.value }}">
+        </div>
+        <div class="mb-3">
+            <label for="id_email" class="form-label">Email</label>
+            <input type="text" name="email" id="id_email" class="form-control" value="{{ form.email.value }}">
+        </div>
+        <div class="mb-3">
+            <label for="id_password" class="form-label">Password</label>
+            <input type="password" name="password" id="id_password" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="id_number" class="form-label">Mobile Number</label>
+            <input type="text" name="number" id="id_number" class="form-control" value="{{ form.number.value }}">
+        </div>
+        <div class="mb-3">
+            <label for="id_user_type" class="form-label">User Type</label>
+            <select name="user_type" id="id_user_type" class="form-select">
+                <option value="Jobseeker">Jobseeker</option>
+                <option value="JobHirer">JobHirer</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="id_dob" class="form-label">Date of Birth</label>
+            <input type="date" name="dob" id="id_dob" class="form-control" value="{{ form.dob.value }}">
+        </div>
+        <button type="submit" class="btn btn-dark">Register</button>
+    </form>
+</div>
+{% endblock content %}

@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mt-5 mb-4">All Jobs</h1>
+    <form method="GET" action="{% url 'joblist' %}" class="mb-4">
+        <div class="input-group">
+            <input type="text" name="q" class="form-control" placeholder="Search jobs..." {% if request.GET.q %}value="{{ request.GET.q }}"{% endif %}>
+            <button type="submit" class="btn btn-dark">Search</button>
+            {% if request.GET.q %}
+            <a href="{% url 'joblist' %}" class="btn btn-secondary">Reset</a>
+            {% endif %}
+        </div>
+    </form>
+    <div class="row">
+        {% for job in jobs %}
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><a href="{% url 'jobdetail' job.slug %}">{{ job.title }}</a></h5>
+                    <p class="card-text">Company: {{ job.company_name }}</p>
+                    <p class="card-text">Posted At: {{ job.created_at | date:"D d M, Y" }}</p>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col">
+            <p>No jobs available.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

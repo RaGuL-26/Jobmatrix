@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mt-4 mb-4">My Job Applications</h1>
+    {% if applications %}
+        <div class="list-group">
+            {% for application in applications %}
+                <div class="list-group-item">
+                    <h4 class="mb-3">{{ application.job.title }}</h4>
+                    <p class="mb-1">Status: 
+                        {% if application.status == 'Pending' %}
+                            <span class="badge bg-danger">{{ application.status }}</span> <br><span class="text-danger">Application is pending.</span>
+                        {% elif application.status == 'Hold' %}
+                            <span class="badge bg-warning text-dark">{{ application.status }}</span> <br><span class="text-warning">your Application Is Under Reviewing By Our Team.</span>
+                        {% elif application.status == 'Accepted' %}
+                            <span class="badge bg-success">{{ application.status }}</span> <br><span class="text-success">Your application has been accepted Soon You Will Get An Interview Call All The Best !.</span>
+                        {% endif %}
+                    </p>
+                    <p class="mb-1">Applied At: {{ application.applied_at }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No job applications found.</p>
+    {% endif %}
+</div>
+{% endblock content %}

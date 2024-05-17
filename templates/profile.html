@@ -1,0 +1,169 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <h2>Profile Information</h2>
+    <div class="position-relative">
+        {% if user.userprofile.profile_pic %}
+            <img src="{{ user.userprofile.profile_pic.url }}" alt="Profile Picture" class="img-thumbnail" style="max-width: 200px; max-height: 200px;">
+            {% if user == request.user %}
+                <a href="{% url 'editdp' user.slug %}" class="position-absolute bottom-0 end-1" title="Edit Profile Picture">
+                    <i class="fa-solid fa-pencil"></i>
+                </a>
+            {% endif %}
+        {% else %}
+            <img src="https://imgs.search.brave.com/uIZdmq30vNaMV6RP6_roOCL3EAZF_m9ZkIwCBl3aXPk/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9lbmNy/eXB0ZWQtdGJuMC5n/c3RhdGljLmNvbS9p/bWFnZXM_cT10Ym46/QU5kOUdjUkVkT25f/QmQ2MVhvaDY5Y0d6/QV9aODZCa0VvbF84/M2hnU1p3JnVzcXA9/Q0FV" alt="Profile Picture" class="img-thumbnail" style="max-width: 200px; max-height: 200px;">
+            {% if user == request.user %}
+                <a href="{% url 'editdp' user.slug %}" class="position-absolute bottom-0 end-1" title="Edit Profile Picture">
+                    <i class="fa-solid fa-pencil"></i>
+                </a>
+            {% endif %}
+        {% endif %}
+    </div>
+    <br>
+    <p><strong>Username:</strong> {{ user.username }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Mobile Number:</strong> {{ user.number }}</p>
+    <p><strong>Date of Birth:</strong> {{ user.dob }}</p>
+
+    <div class="education-details mt-4">
+        <h2>Education</h2>
+        <div class="mx-left" style="max-width: 600px;">
+            {% if education_list %}
+                <ul class="list-group">
+                    {% for education in education_list %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>{{ education.degree }}</strong> in <strong>{{ education.field_of_study }}</strong>
+                                <p>Institution: {{ education.institution }}</p>
+                                <p>From: {{ education.started_year }} to {% if education.ended_year %}{{ education.ended_year }}{% else %}Present{% endif %}</p>
+                                <p>Percentage: {{ education.percentage }}</p>
+                            </div>
+                            {% if request.user == user %}
+                                <form method="post" action="{% url 'deleteeducation' user.slug education.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-link p-0">
+                                        <i class="fa-solid fa-trash text-danger"></i>
+                                    </button>
+                                </form>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No education details available.</p>
+            {% endif %}
+            {% if request.user == user %}
+                <a href="{% url 'addeducation' user.slug %}" class="btn btn-dark mt-3">Add Education</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Project Section -->
+    <div class="project-details mt-4">
+        <h2>Projects</h2>
+        <!-- Projects list -->
+        <div class="mx-left" style="max-width: 600px;">
+            {% if project_list %}
+                <ul class="list-group">
+                    {% for project in project_list %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>{{ project.project_name }}</strong>
+                                <p>{{ project.description }}</p>
+                                <p>From: {{ project.start_date|date:"Y-m-d" }} to {% if project.end_date %}{{ project.end_date|date:"Y-m-d" }}{% else %}Present{% endif %}</p>
+                                {% if project.url %}
+                                    <p>URL: <a href="{{ project.url }}">{{ project.url }}</a></p>
+                                {% endif %}
+                            </div>
+                            {% if request.user == user %}
+                                <form method="post" action="{% url 'deleteproject' user.slug project.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-link p-0">
+                                        <i class="fa-solid fa-trash text-danger"></i>
+                                    </button>
+                                </form>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No project details available.</p>
+            {% endif %}
+            {% if request.user == user %}
+                <a href="{% url 'addproject' user.slug %}" class="btn btn-dark mt-3">Add Project</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Certificates Section -->
+    <div class="certificate-details mt-4">
+        <h2>Certificates</h2>
+        <!-- Certificates list -->
+        <div class="mx-left" style="max-width: 600px;">
+            {% if certificate_list %}
+                <ul class="list-group">
+                    {% for certificate in certificate_list %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>{{ certificate.certificate_name }}</strong>
+                                <p>Issuing Organization: {{ certificate.issuing_organization }}</p>                                <p>Issue Date: {{ certificate.issue_date|date:"Y-m-d" }}</p>
+                                {% if certificate.credential_url %}
+                                    <p>Credential URL: <a href="{{ certificate.credential_url }}">{{ certificate.credential_url }}</a></p>
+                                {% endif %}
+                            </div>
+                            {% if request.user == user %}
+                                <form method="post" action="{% url 'deletecertificate' user.slug certificate.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-link p-0">
+                                        <i class="fa-solid fa-trash text-danger"></i>
+                                    </button>
+                                </form>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No certificate details available.</p>
+            {% endif %}
+            {% if request.user == user %}
+                <a href="{% url 'addcertificate' user.slug %}" class="btn btn-dark mt-3">Add Certificate</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Skills Section -->
+    <div class="skill-details mt-4">
+        <h2>Skills</h2>
+        <!-- Skills list -->
+        <div class="mx-left" style="max-width: 600px;">
+            {% if skill_list %}
+                <ul class="list-group">
+                    {% for skill in skill_list %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>{{ skill.skill_name }}</strong>
+                            </div>
+                            {% if request.user == user %}
+                                <form method="post" action="{% url 'deleteskill' user.slug skill.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-link p-0">
+                                        <i class="fa-solid fa-trash text-danger"></i>
+                                    </button>
+                                </form>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No skill details available.</p>
+            {% endif %}
+            {% if request.user == user %}
+                <a href="{% url 'addskill' user.slug %}" class="btn btn-dark mt-3">Add Skill</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Add Project</h2>
+    <form method="post" action="">
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+        
+        <div class="mb-3">
+            <label for="id_project_name" class="form-label">Project Name:</label>
+            <input type="text" name="project_name" maxlength="100" required="" id="id_project_name" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label for="id_description" class="form-label">Description:</label>
+            <textarea name="description" required="" id="id_description" class="form-control"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="id_start_date" class="form-label">Start Date:</label>
+            <input type="date" name="start_date" required="" id="id_start_date" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label for="id_end_date" class="form-label">End Date:</label>
+            <input type="date" name="end_date" id="id_end_date" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label for="id_url" class="form-label">Project URL:</label>
+            <input type="url" name="url" id="id_url" class="form-control">
+        </div>
+
+        <button type="submit" class="btn btn-dark">Add Project</button>
+    </form>
+</div>
+{% endblock %}

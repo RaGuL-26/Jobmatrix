@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Add Education</h2>
+    <form method="post" action="{% url 'addeducation' user.slug %}">
+        {% csrf_token %}
+        
+        <div class="mb-3">
+            <label for="id_institution" class="form-label">Institution:</label>
+            <input type="text" name="institution" maxlength="100" required="" id="id_institution" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label for="id_degree" class="form-label">Degree/12th/Polytechnic:</label>
+            <input type="text" name="degree" maxlength="100" required="" id="id_degree" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label for="id_field_of_study" class="form-label">Field of study:</label>
+            <input type="text" name="field_of_study" maxlength="100" required="" id="id_field_of_study" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="{{ form.percentage.id_for_label }}" class="form-label">{{ form.percentage.label }}</label>
+            <input type="number" name="{{ form.percentage.name }}" step="0.01" id="{{ form.percentage.id_for_label }}" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label for="id_started_year" class="form-label">Start year:</label>
+            <input type="number" name="started_year" required="" id="id_started_year" class="form-control" min="2010" max="2100">
+        </div>
+
+        <div class="mb-3">
+            <label for="id_ended_year" class="form-label">End year:</label>
+            <input type="number" name="ended_year" id="id_ended_year" class="form-control" min="2012" max="2100">
+        </div>
+
+        <button type="submit" class="btn btn-dark">Add Education</button>
+    </form>
+</div>
+{% endblock %}
