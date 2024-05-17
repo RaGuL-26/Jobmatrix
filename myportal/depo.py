@@ -6,7 +6,7 @@ from .settings import *
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-ALLOWED_HOSTS = ['jobmatrix.onrender.com','127.0.0.1']
+ALLOWED_HOSTS = ['jobmatrix.onrender.com']
 
 DEBUG = False
 
