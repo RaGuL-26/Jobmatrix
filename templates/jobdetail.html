@@ -3,8 +3,17 @@
 {% block content %}
 <div class="container">
     <h1>{{ job.title }}</h1>
-    <p>Description: {{ job.description }}</p>
-    <p>Company: {{ job.company_name }}</p>
+    <span class="badge bg-secondary"><i class="fa-solid fa-briefcase"></i>&nbsp;&nbsp;{{ job.job_type }}</span>&nbsp;&nbsp;<span class="badge bg-secondary">{{ job.employment_type }}</span>&nbsp;&nbsp;<span class="badge bg-secondary"><i class="fa-solid fa-location-dot">&nbsp;&nbsp;</i>{{ job.location }}</span><br><br>
+    <h5>{{job.company_name}}</h5>
+    <br>
+    <h5>About The Job:</h5>
+    <p>{{ job.description }}</p>
+    <h5>Experience Needed:</h5>
+    <p>{{job.experience}}</p>
+    <h5>Skills Required:</h5>
+    <p>{{job.skills_required}}</p>
+    <h5>Salary:</h5>
+    <p>{{job.salary}} /-</p>
     <p>Posted At:{{ job.created_at }}</p>
     <p>Posted By:{{ job.user.username }}</p>
     {% if user.user_type == 'Jobseeker' %}
